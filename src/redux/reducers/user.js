@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { SET_LOGIN } from '../redux/actions';
+import { SET_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   user: {
