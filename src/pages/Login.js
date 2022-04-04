@@ -60,7 +60,7 @@ export class Login extends React.Component {
           <input
             id="password"
             data-testid="password-input"
-            type="text"
+            type="password"
             onChange={ this.handleInput }
           />
         </label>
@@ -78,7 +78,9 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   dispatchSetValue: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 const mapDispatchToProps = (dispatch) => ({
   dispatchSetValue: (form) => dispatch(setLogin(form)),

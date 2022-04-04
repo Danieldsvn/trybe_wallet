@@ -1,5 +1,4 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-// import { SET_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
