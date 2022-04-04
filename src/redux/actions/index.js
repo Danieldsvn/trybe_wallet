@@ -1,2 +1,4 @@
 // Coloque aqui suas actions
-export const newAction = (state) => ({ type: 'NEW_ACTION', state });
+export const SET_LOGIN = 'SET_LOGIN';
+
+export const setLogin = (payload) => ({ type: SET_LOGIN, payload });
