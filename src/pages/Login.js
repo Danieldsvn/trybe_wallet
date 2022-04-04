@@ -18,7 +18,8 @@ export class Login extends React.Component {
 
   handleButton = () => {
     const { dispatchSetValue, history } = this.props;
-    dispatchSetValue(this.state);
+    const { email } = this.state;
+    dispatchSetValue(email);
     history.push('/carteira');
   }
 
@@ -62,13 +63,22 @@ export class Login extends React.Component {
             onChange={ this.handleInput }
           />
         </label>
-        <button type="submit" onClick={ this.handleButton } disabled={ this.isDisabled() }>Entrar</button>
+        <button
+          type="submit"
+          onClick={ this.handleButton }
+          disabled={ this.isDisabled() }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
 }
 
-// propTypes
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
+};
 const mapDispatchToProps = (dispatch) => ({
   dispatchSetValue: (form) => dispatch(setLogin(form)),
 });
