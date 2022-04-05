@@ -118,6 +118,7 @@ export class Wallet extends React.Component {
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  getExpenseForm: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
