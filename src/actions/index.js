@@ -1,6 +1,6 @@
 import getCurrenciesAPI from '../services/currenciesAPI';
 
-// Coloque aqui suas actions
+// Coloque suas actions aqui
 export const SET_LOGIN = 'SET_LOGIN';
 export const CURRENCIES_REQUEST = 'CURRENCIES_REQUEST';
 export const ACTION_FETCH_CURRENCIES = 'ACTION_FETCH_CURRENCIES';
