@@ -13,8 +13,8 @@ export class Wallet extends React.Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: '',
-      tag: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       id: 0,
       exchangeRates: [],
     };
@@ -38,13 +38,14 @@ export class Wallet extends React.Component {
     delete currenciesResponse.USDT;
     this.setState({
       exchangeRates: currenciesResponse,
+
     });
     const { value, description, currency, method,
       tag, id, exchangeRates } = this.state;
     const currencyRate = parseFloat(exchangeRates[currency].ask);
     const valueNumber = parseFloat(value);
-    const expenseValueStr = (valueNumber * currencyRate).toFixed(2);
-    const expenseValue = parseFloat(expenseValueStr);
+
+    const expenseValue = (valueNumber * currencyRate);
     getExpenseForm({
       id,
       value,
@@ -62,13 +63,13 @@ export class Wallet extends React.Component {
   }
 
   render() {
-    const { expenseTotal, value } = this.state;
+    const { expenseTotal, value, tag, method } = this.state;
     const { userEmail, currencies } = this.props;
     return (
       <>
         <header>
           <p data-testid="email-field">{`Email: ${userEmail} `}</p>
-          <p data-testid="total-field">{ expenseTotal }</p>
+          <p data-testid="total-field">{ expenseTotal.toFixed(2) }</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <section>
@@ -107,6 +108,7 @@ export class Wallet extends React.Component {
             <select
               id="method"
               data-testid="method-input"
+              value={ method }
               onChange={ this.handleChange }
             >
               <option>Dinheiro</option>
@@ -119,6 +121,7 @@ export class Wallet extends React.Component {
             <select
               id="tag"
               data-testid="tag-input"
+              value={ tag }
               onChange={ this.handleChange }
             >
               <option>Alimentação</option>
@@ -135,9 +138,7 @@ export class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </section>
-        <section>
-          <Table />
-        </section>
+        <Table />
       </>
     );
   }
