@@ -27,6 +27,12 @@ export class Table extends React.Component {
     return convertedValue;
   }
 
+  getExpenseValue = (expense) => {
+    const expenseValue = expense.value;
+    const expenseValueNumber = parseFloat(expenseValue);
+    return expenseValueNumber.toFixed(2);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -51,7 +57,7 @@ export class Table extends React.Component {
                 <td>{ expense.description }</td>
                 <td>{ expense.tag }</td>
                 <td>{ expense.method }</td>
-                <td>{ expense.value }</td>
+                <td>{ this.getExpenseValue(expense) }</td>
                 <td>{ this.getCurrencyName(expense) }</td>
                 <td>{ this.getExchangeRate(expense) }</td>
                 <td>{ this.getConvertedValue(expense) }</td>
@@ -68,9 +74,8 @@ export class Table extends React.Component {
 
 Table.propTypes = {
   expenses: PropTypes.PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    map: PropTypes.func.isRequired,
   }).isRequired,
-  map: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
