@@ -5,6 +5,7 @@ export const SET_LOGIN = 'SET_LOGIN';
 export const CURRENCIES_REQUEST = 'CURRENCIES_REQUEST';
 export const ACTION_FETCH_CURRENCIES = 'ACTION_FETCH_CURRENCIES';
 export const SET_EXPENSE_FORM = 'SET_EXPENSE_FORM';
+export const ACTION_FETCH_EXCHANGES_RATES = 'ACTION_FETCH_EXCHANGES_RATES';
 
 export const setLogin = (payload) => ({
   type: SET_LOGIN, payload,
@@ -20,12 +21,22 @@ const currenciesRequest = (payload) => ({
 //   payload,
 // });
 
-const fetchCurrencies = async (dispatch) => {
+const fetchCurrenciesAbb = async (dispatch) => {
   const currenciesResponse = await getCurrenciesAPI();
-  dispatch(currenciesRequest(currenciesResponse));
+  delete currenciesResponse.USDT;
+  const currenciesAbbreviation = Object.keys(currenciesResponse);
+  dispatch(currenciesRequest(currenciesAbbreviation));
 };
 
-export const actionFetchCurrencies = () => fetchCurrencies;
+// const fetchExchangesRates = async (dispatch) => {
+//   const currenciesResponse = await getCurrenciesAPI();
+//   delete currenciesResponse.USDT;
+//   dispatch(currenciesRequest(currenciesResponse));
+// };
+
+export const actionFetchCurrenciesAbb = () => fetchCurrenciesAbb;
+
+// export const actionfetchExchangesRates = () => fetchExchangesRates;
 
 export const setExpenseForm = (payload) => ({
   type: SET_EXPENSE_FORM,

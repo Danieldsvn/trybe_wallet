@@ -1,25 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionFetchCurrencies, setExpenseForm } from '../actions';
+import { actionFetchCurrenciesAbb, setExpenseForm } from '../actions';
+import getCurrenciesAPI from '../services/currenciesAPI';
 
 export class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
       expenseTotal: 0,
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
-      payment: '',
-      category: '',
+      method: '',
+      tag: '',
       id: 0,
+      exchangeRates: [],
     };
   }
 
   componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
+    const { getCurrenciesAbb } = this.props;
+    getCurrenciesAbb();
   }
 
   handleChange = ({ target }) => {
@@ -29,22 +31,43 @@ export class Wallet extends React.Component {
     });
   }
 
-  handleAddExpenseButton = () => {
+  handleAddExpenseButton = async () => {
     const { getExpenseForm } = this.props;
-    getExpenseForm(this.state);
+    const currenciesResponse = await getCurrenciesAPI();
+    delete currenciesResponse.USDT;
+    this.setState({
+      exchangeRates: currenciesResponse,
+    });
+    const { value, description, currency, method,
+      tag, id, exchangeRates } = this.state;
+    const currencyRate = parseFloat(exchangeRates[currency].ask);
+    const valueNumber = parseFloat(value);
+    const expenseValueStr = (valueNumber * currencyRate).toFixed(2);
+    const expenseValue = parseFloat(expenseValueStr);
+    getExpenseForm({
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    });
     this.setState((prevState) => ({
+      expenseTotal: prevState.expenseTotal + expenseValue,
       id: prevState.id + 1,
+      value: '',
     }));
   }
 
   render() {
-    const { expenseTotal } = this.state;
+    const { expenseTotal, value } = this.state;
     const { userEmail, currencies } = this.props;
     return (
       <>
         <header>
           <p data-testid="email-field">{`Email: ${userEmail} `}</p>
-          <p data-testid="total-field">{`Despesa total: ${expenseTotal}`}</p>
+          <p data-testid="total-field">{ expenseTotal }</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <section>
@@ -54,6 +77,7 @@ export class Wallet extends React.Component {
               id="value"
               data-testid="value-input"
               type="number"
+              value={ value }
               onChange={ this.handleChange }
             />
           </label>
@@ -77,10 +101,10 @@ export class Wallet extends React.Component {
               ))}
             </select>
           </label>
-          <label htmlFor="payment">
+          <label htmlFor="method">
             Método de pagamento:
             <select
-              id="payment"
+              id="method"
               data-testid="method-input"
               onChange={ this.handleChange }
             >
@@ -89,10 +113,10 @@ export class Wallet extends React.Component {
               <option>Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="category">
+          <label htmlFor="tag">
             Categoria:
             <select
-              id="category"
+              id="tag"
               data-testid="tag-input"
               onChange={ this.handleChange }
             >
@@ -117,7 +141,7 @@ export class Wallet extends React.Component {
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  getCurrencies: PropTypes.func.isRequired,
+  getCurrenciesAbb: PropTypes.func.isRequired,
   getExpenseForm: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -125,10 +149,11 @@ Wallet.propTypes = {
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
   currencies: state.wallet.currencies,
+  // expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(actionFetchCurrencies()),
+  getCurrenciesAbb: () => dispatch(actionFetchCurrenciesAbb()),
   getExpenseForm: (form) => dispatch(setExpenseForm(form)),
 });
 
