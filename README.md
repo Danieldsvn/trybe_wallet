@@ -1,13 +1,33 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Trybe Wallet 
+15º projeto na Trybe. Uma carteira de controle de gastos com conversor de moedas, ao utilizar essa aplicação um usuário é capaz de:
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+- Adicionar um gasto;
+- Visualizar uma tabelas com seus gastos;
+- Visualizar o total de gastos convertidos para uma moeda de escolha;
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Tecnologias empregadas:
+
+Javascript, React.js e Redux.
+
+## Habilidades praticadas
+
+  - Criar um store Redux em aplicações React
+
+- Criar reducers no Redux em aplicações React
+
+- Criar actions no Redux em aplicações React
+
+- Criar dispatchers no Redux em aplicações React
+
+- Conectar Redux aos componentes React
+
+- Criar actions assíncronas na sua aplicação React que faz uso de Redux.
+
+
+## O que é de minha autoria:
+
+Todos os arquivos do diretório `.src/`. Com exceção dos arquivos `*.css`, `serviceWorker.js`, `setupTests.js` e `logo.svg`
+
+## Como visualizar:
+
+Para executar o projeto faça o clone do repositório, entre na pasta do projeto execute o comando `npm install` e depois `npm start` para visualizar a aplicação no navegador Chrome!
