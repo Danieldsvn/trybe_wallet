@@ -1,5 +1,5 @@
 # Trybe Wallet 
-15º projeto na Trybe. Uma carteira de controle de gastos com conversor de moedas, ao utilizar essa aplicação um usuário é capaz de:
+14º projeto na Trybe. Uma carteira de controle de gastos com conversor de moedas, ao utilizar essa aplicação um usuário é capaz de:
 
 - Adicionar um gasto;
 - Visualizar uma tabelas com seus gastos;
